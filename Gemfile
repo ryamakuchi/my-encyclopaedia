@@ -41,6 +41,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  # CircleCI で実行時に必要
+  gem 'rspec_junit_formatter'
 end
 
 group :development do
