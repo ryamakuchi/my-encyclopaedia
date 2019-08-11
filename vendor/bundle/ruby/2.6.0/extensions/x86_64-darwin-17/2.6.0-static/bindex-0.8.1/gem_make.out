@@ -1,0 +1,15 @@
+current directory: /Users/rio/src/github.com/ryamakuchi/my-encyclopaedia/vendor/bundle/ruby/2.6.0/gems/bindex-0.8.1/ext/skiptrace
+/Users/rio/.anyenv/envs/rbenv/versions/2.6.3/bin/ruby -I /Users/rio/.anyenv/envs/rbenv/versions/2.6.3/lib/ruby/2.6.0 -r ./siteconf20190811-57446-1leb9fb.rb extconf.rb
+creating Makefile
+
+current directory: /Users/rio/src/github.com/ryamakuchi/my-encyclopaedia/vendor/bundle/ruby/2.6.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" clean
+
+current directory: /Users/rio/src/github.com/ryamakuchi/my-encyclopaedia/vendor/bundle/ruby/2.6.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR="
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.bundle
+
+current directory: /Users/rio/src/github.com/ryamakuchi/my-encyclopaedia/vendor/bundle/ruby/2.6.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 cruby.bundle ./.gem.20190811-57446-15e8pd0/skiptrace/internal
