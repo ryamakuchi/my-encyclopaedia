@@ -19,5 +19,36 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'POST devise/registrations#create' do
+    let(:user) { create(:user) }
+    it { expect(user).to be_valid }
+
+    context 'Eメールが入力されていないとき' do
+      let(:user) { build(:user, email: nil) }
+
+      it 'エラーになる' do
+        user.valid?
+        expect(user.errors.messages[:email]).to include "を入力してください"
+      end
+    end
+
+    context 'パスワードが入力されていないとき' do
+      let(:user) { build(:user, password: nil) }
+
+      it 'エラーになる' do
+        user.valid?
+        expect(user.errors.messages[:password]).to include "を入力してください"
+      end
+    end
+
+    context '保存されたメールアドレスが指定されたとき' do
+      let(:user1) { create(:user) }
+      let(:user2) { build(:user, email: user1.email) }
+
+      it 'エラーになる' do
+        user2.valid?
+        expect(user2.errors.messages[:email]).to include "はすでに存在します"
+      end
+    end
+  end
 end
