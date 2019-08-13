@@ -32,12 +32,30 @@ RSpec.describe User, type: :model do
       end
     end
 
+    context 'Eメールが正しく入力されていないとき' do
+      let(:user) { build(:user, email: 'ryamakuchi') }
+
+      it 'エラーになる' do
+        user.valid?
+        expect(user.errors.messages[:email]).to include "は不正な値です"
+      end
+    end
+
     context 'パスワードが入力されていないとき' do
       let(:user) { build(:user, password: nil) }
 
       it 'エラーになる' do
         user.valid?
         expect(user.errors.messages[:password]).to include "を入力してください"
+      end
+    end
+
+    context 'パスワードが6文字以上入力されていないとき' do
+      let(:user) { build(:user, password: 'a' * 5) }
+
+      it 'エラーになる' do
+        user.valid?
+        expect(user.errors.messages[:password]).to include "は6文字以上で入力してください"
       end
     end
 
