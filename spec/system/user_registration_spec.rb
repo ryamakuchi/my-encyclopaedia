@@ -17,10 +17,11 @@ RSpec.describe "POST devise/registrations#create", type: :system do
         click_on "アカウント登録"
       }.to change(User, :count).by(1)
 
+      mail = ActionMailer::Base.deliveries.last
+      expect(mail.to).to eq [mail_address]
+
       expect(page).to have_content "本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。"
       expect(current_path).to eq root_path
-
-      expect(ActionMailer::Base.deliveries.last.to).to eq [mail_address]
     end
   end
 
@@ -35,7 +36,10 @@ RSpec.describe "POST devise/registrations#create", type: :system do
         fill_in "パスワード（確認用）", with: ''
 
         click_on "アカウント登録"
-      }.to change(User, :count).by(0)
+      }.to_not change(User, :count)
+
+      mail = ActionMailer::Base.deliveries
+      expect(mail).to eq []
 
       expect(page).to have_content "Eメールを入力してください"
       expect(page).to have_content "パスワードを入力してください"
