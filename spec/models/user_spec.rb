@@ -16,54 +16,54 @@
 #  updated_at             :datetime         not null
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe User, type: :model do
-  describe 'POST devise/registrations#create' do
+  describe "POST devise/registrations#create" do
     let(:user) { create(:user) }
     it { expect(user).to be_valid }
 
-    context 'Eメールが入力されていないとき' do
+    context "Eメールが入力されていないとき" do
       let(:user) { build(:user, email: nil) }
 
-      it 'エラーになる' do
+      it "エラーになる" do
         user.valid?
         expect(user.errors.messages[:email]).to include "を入力してください"
       end
     end
 
-    context 'Eメールが正しく入力されていないとき' do
+    context "Eメールが正しく入力されていないとき" do
       let(:user) { build(:user, email: 'ryamakuchi') }
 
-      it 'エラーになる' do
+      it "エラーになる" do
         user.valid?
         expect(user.errors.messages[:email]).to include "は不正な値です"
       end
     end
 
-    context 'パスワードが入力されていないとき' do
+    context "パスワードが入力されていないとき" do
       let(:user) { build(:user, password: nil) }
 
-      it 'エラーになる' do
+      it "エラーになる" do
         user.valid?
         expect(user.errors.messages[:password]).to include "を入力してください"
       end
     end
 
-    context 'パスワードが6文字以上入力されていないとき' do
+    context "パスワードが6文字以上入力されていないとき" do
       let(:user) { build(:user, password: 'a' * 5) }
 
-      it 'エラーになる' do
+      it "エラーになる" do
         user.valid?
         expect(user.errors.messages[:password]).to include "は6文字以上で入力してください"
       end
     end
 
-    context '保存されたメールアドレスが指定されたとき' do
+    context "保存されたメールアドレスが指定されたとき" do
       let(:user1) { create(:user) }
       let(:user2) { build(:user, email: user1.email) }
 
-      it 'エラーになる' do
+      it "エラーになる" do
         user2.valid?
         expect(user2.errors.messages[:email]).to include "はすでに存在します"
       end

@@ -1,19 +1,26 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'POST devise/registrations#create', type: :system do
-  scenario 'アカウント登録が成功する' do
+RSpec.describe "POST devise/registrations#create", type: :system do
+  let(:mail_address) { Faker::Internet.free_email }
+  let(:password) { Faker::Internet.password(min_length: 6) }
+
+  scenario "アカウント登録が成功する" do
     visit new_user_registration_path
+    expect(page).to have_http_status :ok
 
-    password = Faker::Internet.password(min_length: 6)
+    expect {
+      fill_in "Eメール", with: mail_address
+      fill_in "パスワード", with: password
+      fill_in "パスワード（確認用）", with: password
 
-    fill_in 'Eメール', with: Faker::Internet.free_email
-    fill_in 'パスワード', with: password
-    fill_in 'パスワード（確認用）', with: password
+      click_on "アカウント登録"
+    }.to change(User, :count).by(1)
 
-    click_on "アカウント登録"
+    expect(page).to have_content "本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。"
+    expect(current_path).to eq root_path
 
-    expect(page).to have_content '本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。'
-    
+    mail = ActionMailer::Base.deliveries.last
+    expect(mail.to).to eq [mail_address]
   end
 
   describe 'バリデーションエラーの場合' do
