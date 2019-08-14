@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "POST devise/registrations#create", type: :system do
+describe "POST devise/registrations#create", type: :system do
   describe "登録する情報が正しい場合" do
     let(:mail_address) { Faker::Internet.free_email }
     let(:password) { Faker::Internet.password(min_length: 6) }

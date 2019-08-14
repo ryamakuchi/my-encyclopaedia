@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Devise::Mailer, type: :mailer do
+describe Devise::Mailer, type: :mailer do
   describe "POST devise/registrations#create" do
     let!(:mail_address) { Faker::Internet.free_email }
     let!(:user) { create(:user, email: mail_address) }
