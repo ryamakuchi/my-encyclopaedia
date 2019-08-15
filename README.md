@@ -1,24 +1,38 @@
-# README
+# My 百科事典
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirements
 
-Things you may want to cover:
+- Ruby 2.6.3
+- Postgresql 11.5
 
-* Ruby version
+## Setup
 
-* System dependencies
+```
+docker-compose build
+docker-compose up
+docker ps # 現在立ち上がっているコンテナを確認
+docker exec -it docker_web_1 /bin/bash
+```
 
-* Configuration
+```
+bin/rails db:create
+bin/rails db:migrate
+```
 
-* Database creation
+## Development
 
-* Database initialization
+```
+open http://localhost:3000
+```
 
-* How to run the test suite
+### Letter Opener Web
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+open http://localhost:3000/letter_opener
+```
 
-* Deployment instructions
+## Testing
 
-* ...
+```
+bin/rails spec
+```
