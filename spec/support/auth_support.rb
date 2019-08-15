@@ -10,6 +10,14 @@ module AuthSupport
     user_confirmation if confirmation == true
   end
 
+  def user_sign_in (mail_address:, password:)
+    visit new_user_session_path
+
+    fill_in "Eメール", with: mail_address
+    fill_in "パスワード", with: password
+    click_on "ログイン"
+  end
+
   private
 
   def user_confirmation
